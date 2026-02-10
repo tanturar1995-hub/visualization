@@ -25,7 +25,7 @@
 # ### Slide 33 — Preview question: what does ‘objective’ mean in data viz?
 # - ‘Objective’ usually means being transparent about choices (scales, filters, encodings), showing uncertainty, and minimizing misleading framing—*not* that the visualization is free of choices.
 
-# import numpy as np
+import numpy as np
 import matplotlib.pyplot as plt
 
 np.random.seed(613)

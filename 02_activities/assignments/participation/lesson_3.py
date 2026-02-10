@@ -41,11 +41,12 @@ This script demonstrates a simple reproducible pattern:
 """
 
 from __future__ import annotations
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-OUTDIR = "outputs"
+OUTDIR = Path("outputs")
 SEED = 613
 
 def make_data(n: int = 50) -> pd.DataFrame:
@@ -55,8 +56,10 @@ def make_data(n: int = 50) -> pd.DataFrame:
     return pd.DataFrame({"x": x, "y": y})
 
 def main() -> None:
+    OUTDIR.mkdir(parents=True, exist_ok=True)  # <-- creates outputs/ if missing
+
     df = make_data(50)
-    df.to_csv(f"{OUTDIR}/03_data.csv", index=False)
+    df.to_csv(OUTDIR / "03_data.csv", index=False)
 
     fig, ax = plt.subplots(figsize=(6, 3.5))
     ax.scatter(df["x"], df["y"])
@@ -64,12 +67,11 @@ def main() -> None:
     ax.set_xlabel("x")
     ax.set_ylabel("y")
     fig.tight_layout()
-    fig.savefig(f"{OUTDIR}/03_reproducible_scatter.png", dpi=250)
+    fig.savefig(OUTDIR / "03_reproducible_scatter.png", dpi=250)
     plt.close(fig)
 
-    # Example “method” step: compute and save summary stats
     summary = df["y"].describe()
-    summary.to_csv(f"{OUTDIR}/03_y_summary.csv")
+    summary.to_csv(OUTDIR / "03_y_summary.csv")
 
 if __name__ == "__main__":
     main()
